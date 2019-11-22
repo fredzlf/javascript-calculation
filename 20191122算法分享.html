@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="exporter-version" content="Evernote Mac 9.2.1 (458833)"/><meta name="altitude" content="51.39552307128906"/><meta name="author" content="高立发"/><meta name="created" content="2019-11-21 05:46:28 +0000"/><meta name="latitude" content="39.83309936523438"/><meta name="longitude" content="116.2784118118061"/><meta name="source" content="desktop.mac"/><meta name="updated" content="2019-11-22 08:52:33 +0000"/><meta name="content-class" content="yinxiang.markdown"/><title>20191122算法分享</title></head><body><div style="font-size: 14px; margin: 0; padding: 0; width: 100%;"><h1 style="line-height: 160%; box-sizing: content-box; font-weight: 700; font-size: 41px; border-bottom: 3px double #999; color: #000; margin-top: 14px;">从排序数组中删除重复项</h1>
+<h1 style="line-height: 160%; box-sizing: content-box; font-weight: 700; font-size: 41px; border-bottom: 3px double #999; color: #000;">给定一个排序数组，你需要在原地删除重复出现的元素，使得每个元素只出现一次，返回移除后数组的新长度。不要使用额外的数组空间，你必须在原地修改输入数组并在使用 O(1) 额外空间的条件下完成。</h1>
+<h1 style="line-height: 160%; box-sizing: content-box; font-weight: 700; font-size: 41px; border-bottom: 3px double #999; color: #000;">示例1：const array = [1, 1, 2],返回数组长度2，修改后的数组[1, 2],你不需要考虑数组中超出新长度后面的元素。</h1>
+<ul style="line-height: 160%; box-sizing: content-box; display: block; list-style-type: disc; padding-left: 30px; margin: 6px 0 10px; color: #333;">
+<li style="line-height: 160%; box-sizing: content-box; position: relative;">示例2: const array = [0, 0, 1, 1, 2, 3, 3, 4]<br/>
+返回数组长度5，修改后的数组[0, 1, 2, 3, 4]<br/>
+你不需要考虑数组中超出新长度后面的元素。</li>
+</ul>
+<p style="line-height: 160%; box-sizing: content-box; margin: 10px 0; color: #333;">&nbsp;&nbsp;<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+</p>
+<h3 style="line-height: 160%; box-sizing: content-box; font-weight: 700; font-size: 27px; color: #333;">我的代码</h3>
+<h4 style="line-height: 160%; box-sizing: content-box; font-size: 20px; color: #333;">版本1</h4>
+<pre style="line-height: 160%; box-sizing: content-box; border: 0; border-radius: 0; margin: 2px 0 8px; background-color: #f5f7f8;"><code style="display: block; overflow-x: auto; background: #1e1e1e; line-height: 160%; box-sizing: content-box; border: 0; border-radius: 0; letter-spacing: -.3px; padding: 18px; color: #f4f4f4; white-space: pre-wrap;">//伪递归
+var removeDumplicates = function(nums) {
+    for (var i=0; i&lt;nums.length; i++) {
+        if(nums[i] == nums[i+1]) {
+            nums.splice(i, 1)
+            removeDumplicates(nums)
+        }
+    }
+    return nums.length
+}
+</code></pre>
+<p style="line-height: 160%; box-sizing: content-box; margin: 10px 0; color: #333;">用时: 536ms<br/>
+时间复杂度：o(n2)<br/>&nbsp;&nbsp;
+</p>
+<h4 style="line-height: 160%; box-sizing: content-box; font-size: 20px; color: #333;">版本2</h4>
+<pre style="line-height: 160%; box-sizing: content-box; border: 0; border-radius: 0; margin: 2px 0 8px; background-color: #f5f7f8;"><code style="display: block; overflow-x: auto; background: #1e1e1e; line-height: 160%; box-sizing: content-box; border: 0; border-radius: 0; letter-spacing: -.3px; padding: 18px; color: #f4f4f4; white-space: pre-wrap;">//两个for循环
+var removeDuplicates = function(nums) {
+    for(var i=0; i&lt;nums.length; i++) {
+        for(var j=i+1; j&lt;nums.length; j++) {
+            if(nums[i] == nums[j]) {
+                nums.splice(j, 1);
+                j--;
+            }
+        }
+    }
+    return nums.length
+}
+</code></pre>
+<p style="line-height: 160%; box-sizing: content-box; margin: 10px 0; color: #333;">用时：348ms<br/>
+时间复杂度：o(n2)<br/>&nbsp;&nbsp;
+</p>
+<h4 style="line-height: 160%; box-sizing: content-box; font-size: 20px; color: #333;">版本3</h4>
+<pre style="line-height: 160%; box-sizing: content-box; border: 0; border-radius: 0; margin: 2px 0 8px; background-color: #f5f7f8;"><code style="display: block; overflow-x: auto; background: #1e1e1e; line-height: 160%; box-sizing: content-box; border: 0; border-radius: 0; letter-spacing: -.3px; padding: 18px; color: #f4f4f4; white-space: pre-wrap;">//j用来计数
+var removeDuplicates = function(nums) {
+    if (nums.length == 0) return 0;
+    let j = 0;
+    for (var i=0; i&lt;nums.length; i++) {
+        if (nums[i] != nums[i+1] || j+1 == nums.length) {
+            nums[j] = nums[i];
+            j++;
+        }
+    }
+    return j;
+};
+</code></pre>
+<p style="line-height: 160%; box-sizing: content-box; margin: 10px 0; color: #333;">用时：84ms<br/>
+时间复杂度：o(n)<br/>
+空间复杂度：o(1)<br/>&nbsp;&nbsp;
+</p>
+<h4 style="line-height: 160%; box-sizing: content-box; font-size: 20px; color: #333;">版本4</h4>
+<pre style="line-height: 160%; box-sizing: content-box; border: 0; border-radius: 0; margin: 2px 0 8px; background-color: #f5f7f8;"><code style="display: block; overflow-x: auto; background: #1e1e1e; line-height: 160%; box-sizing: content-box; border: 0; border-radius: 0; letter-spacing: -.3px; padding: 18px; color: #f4f4f4; white-space: pre-wrap;">//i、j两个指针
+var removeDuplicates = function(nums) {
+    if (nums.length == 0) return 0;
+    var j = 0;
+    for (var i = 1; i &lt; nums.length; i++) {
+        if (nums[i] != nums[j] || i+1 == nums.length) {
+            j++;
+            nums[j] = nums[i];
+        }
+    }
+    return j + 1;
+}
+</code></pre>
+<p style="line-height: 160%; box-sizing: content-box; margin: 10px 0; color: #333;">用时：80 ms<br/>
+时间复杂度：o(n)<br/>
+空间复杂度：o(1)</p>
+<p style="line-height: 160%; box-sizing: content-box; margin: 10px 0; color: #333;">&nbsp;&nbsp;<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+</p>
+<h1 style="line-height: 160%; box-sizing: content-box; font-weight: 700; font-size: 41px; border-bottom: 3px double #999; color: #000;">旋转数组</h1>
+<h1 style="line-height: 160%; box-sizing: content-box; font-weight: 700; font-size: 41px; border-bottom: 3px double #999; color: #000;">给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。</h1>
+<h2 style="line-height: 160%; box-sizing: content-box; font-weight: 700; font-size: 34px; border-bottom: 1px solid #dbdbdb; color: #333;">示例1:输入: [1,2,3,4,5,6,7] 和 k = 3输出: [5,6,7,1,2,3,4]解释:向右旋转 1 步: [7,1,2,3,4,5,6]向右旋转 2 步: [6,7,1,2,3,4,5]向右旋转 3 步: [5,6,7,1,2,3,4]</h2>
+<ul style="line-height: 160%; box-sizing: content-box; display: block; list-style-type: disc; padding-left: 30px; margin: 6px 0 10px; color: #333;">
+<li style="line-height: 160%; box-sizing: content-box; position: relative;">示例2:<br/>
+输入: [-1,-100,3,99] 和 k = 2<br/>
+输出: [3,99,-1,-100]<br/>
+解释:<br/>
+向右旋转 1 步: [99,-1,-100,3]<br/>
+向右旋转 2 步: [3,99,-1,-100]</li>
+</ul>
+<p style="line-height: 160%; box-sizing: content-box; margin: 10px 0; color: #333;">&nbsp;&nbsp;<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+<br/>&nbsp;&nbsp;
+</p>
+<h4 style="line-height: 160%; box-sizing: content-box; font-size: 20px; color: #333;">我的代码</h4>
+<p style="line-height: 160%; box-sizing: content-box; margin: 10px 0; color: #333;">1.版本1:</p>
+<pre style="line-height: 160%; box-sizing: content-box; border: 0; border-radius: 0; margin: 2px 0 8px; background-color: #f5f7f8;"><code style="display: block; overflow-x: auto; background: #1e1e1e; line-height: 160%; box-sizing: content-box; border: 0; border-radius: 0; letter-spacing: -.3px; padding: 18px; color: #f4f4f4; white-space: pre-wrap;">var rotate = function(nums, k) {
+    k %= nums.length;
+    for(var i=0; i&lt;k; i++) {
+        var temp
+        for (var j=0; j&lt;nums.length-1; j++) {
+            temp = nums[j+1]
+            nums[j+1] = nums[0]
+            nums[0] = temp
+        }
+    }
+};
+</code></pre>
+<p style="line-height: 160%; box-sizing: content-box; margin: 10px 0; color: #333;">用时：304 ms<br/>
+2.版本2:</p>
+<pre style="line-height: 160%; box-sizing: content-box; border: 0; border-radius: 0; margin: 2px 0 8px; background-color: #f5f7f8;"><code style="display: block; overflow-x: auto; background: #1e1e1e; line-height: 160%; box-sizing: content-box; border: 0; border-radius: 0; letter-spacing: -.3px; padding: 18px; color: #f4f4f4; white-space: pre-wrap;">var rotate = function(nums, k) {
+    realK = k % nums.length
+    let tempnums = nums.splice(-realK, realK)
+    nums.unshift(...tempnums)
+};
+</code></pre>
+<p style="line-height: 160%; box-sizing: content-box; margin: 10px 0; color: #333;">用时：108ms<br/>
+3.版本3:</p>
+<pre style="line-height: 160%; box-sizing: content-box; border: 0; border-radius: 0; margin: 2px 0 8px; background-color: #f5f7f8;"><code style="display: block; overflow-x: auto; background: #1e1e1e; line-height: 160%; box-sizing: content-box; border: 0; border-radius: 0; letter-spacing: -.3px; padding: 18px; color: #f4f4f4; white-space: pre-wrap;">var rotate = function(nums, k) {
+    while(k &gt; 0){
+        let a = nums.pop()
+        nums.unshift(a)
+        k--
+    }
+    return nums
+};
+</code></pre>
+<p style="line-height: 160%; box-sizing: content-box; margin: 10px 0; color: #333;">用时：120 ms</p>
+</div><center style="display:none !important;visibility:collapse !important;height:0 !important;white-space:nowrap;width:100%;overflow:hidden">%23%20%E4%BB%8E%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E5%88%A0%E9%99%A4%E9%87%8D%E5%A4%8D%E9%A1%B9%0A%23%20%E7%BB%99%E5%AE%9A%E4%B8%80%E4%B8%AA%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%EF%BC%8C%E4%BD%A0%E9%9C%80%E8%A6%81%E5%9C%A8%E5%8E%9F%E5%9C%B0%E5%88%A0%E9%99%A4%E9%87%8D%E5%A4%8D%E5%87%BA%E7%8E%B0%E7%9A%84%E5%85%83%E7%B4%A0%EF%BC%8C%E4%BD%BF%E5%BE%97%E6%AF%8F%E4%B8%AA%E5%85%83%E7%B4%A0%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%EF%BC%8C%E8%BF%94%E5%9B%9E%E7%A7%BB%E9%99%A4%E5%90%8E%E6%95%B0%E7%BB%84%E7%9A%84%E6%96%B0%E9%95%BF%E5%BA%A6%E3%80%82%E4%B8%8D%E8%A6%81%E4%BD%BF%E7%94%A8%E9%A2%9D%E5%A4%96%E7%9A%84%E6%95%B0%E7%BB%84%E7%A9%BA%E9%97%B4%EF%BC%8C%E4%BD%A0%E5%BF%85%E9%A1%BB%E5%9C%A8%E5%8E%9F%E5%9C%B0%E4%BF%AE%E6%94%B9%E8%BE%93%E5%85%A5%E6%95%B0%E7%BB%84%E5%B9%B6%E5%9C%A8%E4%BD%BF%E7%94%A8%20O(1)%20%E9%A2%9D%E5%A4%96%E7%A9%BA%E9%97%B4%E7%9A%84%E6%9D%A1%E4%BB%B6%E4%B8%8B%E5%AE%8C%E6%88%90%E3%80%82%0A%23%20%E7%A4%BA%E4%BE%8B1%EF%BC%9Aconst%20array%20%3D%20%5B1%2C%201%2C%202%5D%2C%E8%BF%94%E5%9B%9E%E6%95%B0%E7%BB%84%E9%95%BF%E5%BA%A62%EF%BC%8C%E4%BF%AE%E6%94%B9%E5%90%8E%E7%9A%84%E6%95%B0%E7%BB%84%5B1%2C%202%5D%2C%E4%BD%A0%E4%B8%8D%E9%9C%80%E8%A6%81%E8%80%83%E8%99%91%E6%95%B0%E7%BB%84%E4%B8%AD%E8%B6%85%E5%87%BA%E6%96%B0%E9%95%BF%E5%BA%A6%E5%90%8E%E9%9D%A2%E7%9A%84%E5%85%83%E7%B4%A0%E3%80%82%0A*%20%E7%A4%BA%E4%BE%8B2%3A%20const%20array%20%3D%20%5B0%2C%200%2C%201%2C%201%2C%202%2C%203%2C%203%2C%204%5D%0A%E8%BF%94%E5%9B%9E%E6%95%B0%E7%BB%84%E9%95%BF%E5%BA%A65%EF%BC%8C%E4%BF%AE%E6%94%B9%E5%90%8E%E7%9A%84%E6%95%B0%E7%BB%84%5B0%2C%201%2C%202%2C%203%2C%204%5D%0A%E4%BD%A0%E4%B8%8D%E9%9C%80%E8%A6%81%E8%80%83%E8%99%91%E6%95%B0%E7%BB%84%E4%B8%AD%E8%B6%85%E5%87%BA%E6%96%B0%E9%95%BF%E5%BA%A6%E5%90%8E%E9%9D%A2%E7%9A%84%E5%85%83%E7%B4%A0%E3%80%82%0A%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%0A%0A%23%23%23%20%E6%88%91%E7%9A%84%E4%BB%A3%E7%A0%81%0A%23%23%23%23%20%E7%89%88%E6%9C%AC1%0A%60%60%60%0A%2F%2F%E4%BC%AA%E9%80%92%E5%BD%92%0Avar%20removeDumplicates%20%3D%20function(nums)%20%7B%0A%20%20%20%20for%20(var%20i%3D0%3B%20i%3Cnums.length%3B%20i%2B%2B)%20%7B%0A%20%20%20%20%20%20%20%20if(nums%5Bi%5D%20%3D%3D%20nums%5Bi%2B1%5D)%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20nums.splice(i%2C%201)%0A%20%20%20%20%20%20%20%20%20%20%20%20removeDumplicates(nums)%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%20%20%20%20return%20nums.length%0A%7D%0A%60%60%60%0A%E7%94%A8%E6%97%B6%3A%20536ms%0A%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%EF%BC%9Ao(n2)%0A%26nbsp%3B%0A%23%23%23%23%20%E7%89%88%E6%9C%AC2%0A%60%60%60%0A%2F%2F%E4%B8%A4%E4%B8%AAfor%E5%BE%AA%E7%8E%AF%0Avar%20removeDuplicates%20%3D%20function(nums)%20%7B%0A%20%20%20%20for(var%20i%3D0%3B%20i%3Cnums.length%3B%20i%2B%2B)%20%7B%0A%20%20%20%20%20%20%20%20for(var%20j%3Di%2B1%3B%20j%3Cnums.length%3B%20j%2B%2B)%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20if(nums%5Bi%5D%20%3D%3D%20nums%5Bj%5D)%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20nums.splice(j%2C%201)%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20j--%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%20%20%20%20return%20nums.length%0A%7D%0A%60%60%60%0A%E7%94%A8%E6%97%B6%EF%BC%9A348ms%0A%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%EF%BC%9Ao(n2)%0A%26nbsp%3B%0A%23%23%23%23%20%E7%89%88%E6%9C%AC3%0A%60%60%60%0A%2F%2Fj%E7%94%A8%E6%9D%A5%E8%AE%A1%E6%95%B0%0Avar%20removeDuplicates%20%3D%20function(nums)%20%7B%0A%20%20%20%20if%20(nums.length%20%3D%3D%200)%20return%200%3B%0A%20%20%20%20let%20j%20%3D%200%3B%0A%20%20%20%20for%20(var%20i%3D0%3B%20i%3Cnums.length%3B%20i%2B%2B)%20%7B%0A%20%20%20%20%20%20%20%20if%20(nums%5Bi%5D%20!%3D%20nums%5Bi%2B1%5D%20%7C%7C%20j%2B1%20%3D%3D%20nums.length)%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20nums%5Bj%5D%20%3D%20nums%5Bi%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20j%2B%2B%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%20%20%20%20return%20j%3B%0A%7D%3B%0A%60%60%60%0A%E7%94%A8%E6%97%B6%EF%BC%9A84ms%0A%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%EF%BC%9Ao(n)%0A%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%EF%BC%9Ao(1)%0A%26nbsp%3B%0A%23%23%23%23%20%E7%89%88%E6%9C%AC4%0A%60%60%60%0A%2F%2Fi%E3%80%81j%E4%B8%A4%E4%B8%AA%E6%8C%87%E9%92%88%0Avar%20removeDuplicates%20%3D%20function(nums)%20%7B%0A%20%20%20%20if%20(nums.length%20%3D%3D%200)%20return%200%3B%0A%20%20%20%20var%20j%20%3D%200%3B%0A%20%20%20%20for%20(var%20i%20%3D%201%3B%20i%20%3C%20nums.length%3B%20i%2B%2B)%20%7B%0A%20%20%20%20%20%20%20%20if%20(nums%5Bi%5D%20!%3D%20nums%5Bj%5D%20%7C%7C%20i%2B1%20%3D%3D%20nums.length)%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20j%2B%2B%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20nums%5Bj%5D%20%3D%20nums%5Bi%5D%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%20%20%20%20return%20j%20%2B%201%3B%0A%7D%0A%60%60%60%0A%E7%94%A8%E6%97%B6%EF%BC%9A80%20ms%0A%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%EF%BC%9Ao(n)%0A%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%EF%BC%9Ao(1)%0A%0A%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%0A%0A%23%20%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84%0A%23%20%E7%BB%99%E5%AE%9A%E4%B8%80%E4%B8%AA%E6%95%B0%E7%BB%84%EF%BC%8C%E5%B0%86%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E5%85%83%E7%B4%A0%E5%90%91%E5%8F%B3%E7%A7%BB%E5%8A%A8%20k%20%E4%B8%AA%E4%BD%8D%E7%BD%AE%EF%BC%8C%E5%85%B6%E4%B8%AD%20k%20%E6%98%AF%E9%9D%9E%E8%B4%9F%E6%95%B0%E3%80%82%0A%23%23%20%20%E7%A4%BA%E4%BE%8B1%3A%E8%BE%93%E5%85%A5%3A%20%5B1%2C2%2C3%2C4%2C5%2C6%2C7%5D%20%E5%92%8C%20k%20%3D%203%E8%BE%93%E5%87%BA%3A%20%5B5%2C6%2C7%2C1%2C2%2C3%2C4%5D%E8%A7%A3%E9%87%8A%3A%E5%90%91%E5%8F%B3%E6%97%8B%E8%BD%AC%201%20%E6%AD%A5%3A%20%5B7%2C1%2C2%2C3%2C4%2C5%2C6%5D%E5%90%91%E5%8F%B3%E6%97%8B%E8%BD%AC%202%20%E6%AD%A5%3A%20%5B6%2C7%2C1%2C2%2C3%2C4%2C5%5D%E5%90%91%E5%8F%B3%E6%97%8B%E8%BD%AC%203%20%E6%AD%A5%3A%20%5B5%2C6%2C7%2C1%2C2%2C3%2C4%5D%0A*%20%E7%A4%BA%E4%BE%8B2%3A%0A%E8%BE%93%E5%85%A5%3A%20%5B-1%2C-100%2C3%2C99%5D%20%E5%92%8C%20k%20%3D%202%0A%E8%BE%93%E5%87%BA%3A%20%5B3%2C99%2C-1%2C-100%5D%0A%E8%A7%A3%E9%87%8A%3A%20%0A%E5%90%91%E5%8F%B3%E6%97%8B%E8%BD%AC%201%20%E6%AD%A5%3A%20%5B99%2C-1%2C-100%2C3%5D%0A%E5%90%91%E5%8F%B3%E6%97%8B%E8%BD%AC%202%20%E6%AD%A5%3A%20%5B3%2C99%2C-1%2C-100%5D%0A%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%26nbsp%3B%0A%0A%23%23%23%23%20%E6%88%91%E7%9A%84%E4%BB%A3%E7%A0%81%0A1.%E7%89%88%E6%9C%AC1%3A%0A%60%60%60%0Avar%20rotate%20%3D%20function(nums%2C%20k)%20%7B%0A%20%20%20%20k%20%25%3D%20nums.length%3B%0A%20%20%20%20for(var%20i%3D0%3B%20i%3Ck%3B%20i%2B%2B)%20%7B%0A%20%20%20%20%20%20%20%20var%20temp%0A%20%20%20%20%20%20%20%20for%20(var%20j%3D0%3B%20j%3Cnums.length-1%3B%20j%2B%2B)%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20temp%20%3D%20nums%5Bj%2B1%5D%0A%20%20%20%20%20%20%20%20%20%20%20%20nums%5Bj%2B1%5D%20%3D%20nums%5B0%5D%0A%20%20%20%20%20%20%20%20%20%20%20%20nums%5B0%5D%20%3D%20temp%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%7D%3B%0A%60%60%60%0A%E7%94%A8%E6%97%B6%EF%BC%9A304%20ms%0A2.%E7%89%88%E6%9C%AC2%3A%0A%60%60%60%0Avar%20rotate%20%3D%20function(nums%2C%20k)%20%7B%0A%20%20%20%20realK%20%3D%20k%20%25%20nums.length%0A%20%20%20%20let%20tempnums%20%3D%20nums.splice(-realK%2C%20realK)%0A%20%20%20%20nums.unshift(...tempnums)%0A%7D%3B%0A%60%60%60%0A%E7%94%A8%E6%97%B6%EF%BC%9A108ms%0A3.%E7%89%88%E6%9C%AC3%3A%0A%60%60%60%0Avar%20rotate%20%3D%20function(nums%2C%20k)%20%7B%0A%20%20%20%20while(k%20%3E%200)%7B%0A%20%20%20%20%20%20%20%20let%20a%20%3D%20nums.pop()%0A%20%20%20%20%20%20%20%20nums.unshift(a)%0A%20%20%20%20%20%20%20%20k--%0A%20%20%20%20%7D%0A%20%20%20%20return%20nums%0A%7D%3B%0A%60%60%60%0A%E7%94%A8%E6%97%B6%EF%BC%9A120%20ms%0A%0A</center></body></html>
